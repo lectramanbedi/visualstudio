@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Application Form</title>
+    <script>
+        function printerr(elemid, hintmsg)
+        {
+            document.getElementById(elemid).innerHTML = hintmsg;
+        }
+        function ValidateForm()
+        {
+            var name = document.contactform.txtname.value;
+            var email = document.contactform.txtemail.value;
+            var mobile = document.contactform.txtmobile.value;
+            var country = document.contactform.country.value;
+
+            //error var
+            var nameerr = true;
+            var emailerr = true;
+            var mobileerr = true;
+            var countryerr = true;
+            var gendererr = true;
+
+            //checking validation
+
+            if (name == "")
+            {
+                printerr("nameerr", "Please enter your name");
+            }
+            else
+            {
+                var regex = /^[a-zA-Z\s]+$/
+                if (regex.test(name) === false) {
+                    printerr("nameerr", "Please enter a valid name");
+                }
+                else
+                {
+                    printerr("nameerr", "");
+                    nameerr = false;
+                }
+            }
+            //email validation
+            if (email == "")
+            {
+                printerr("emailerr", "Please enter your email address")
+            }
+            else
+            {
+                var regex = /^\S+@\S+\.\S+$/
+                if (regex.test(email) === false) {
+                    printerr("emailerr", "Please enter a valid email address");
+                }
+                else
+                {
+                    printerr("emailerr", "");
+                    nameerr = false;
+                }
+
+            }
+            //mobile validation
+            if (mobile == "")
+            {
+                printerr("mobileerr", "Please enter your mobile number")
+            }
+            else
+            {
+                var regex = /^[6-9]\d{9}$/gi
+                if (regex.test(mobile) === false) {
+                    printerr("mobileerr", "Please enter a valid mobile number");
+                }
+                else
+                {
+                    printerr("mobileerr", "");
+                    nameerr = false;
+                }
+
+            }
+             //country validation
+            if (country == "Select") {
+                printerr("countryerr", "Please select country")
+            }
+            else {
+                printerr("countryerr", "")
+                countryerr = false
+            }
+            //gender validation
+            if (document.contactform.gender.selectedIndex == 0)
+            {
+                printerr("gendererr", "Please select gender")
+            }
+            else
+            {
+                printerr("gendererr", "")
+                gendererr = false
+            }
+            if ((nameerr || emailerr || mobileerr || countryerr || gendererr) == true) {
+                return false;
+            }
+            else
+            {
+                var dataPreview = "You've entered the following details: \n" +
+                          "Full Name: " + name + "\n" +
+                          "Email Address: " + email + "\n" +
+                          "Mobile Number: " + mobile + "\n" +
+                          "Country: " + country + "\n" +
+                "Gender: " + gender + "\n";
+                alert(dataPreview)
+            }
+        }
+    </script>
+</head>
+<body>
+    <form name="contactform" onsubmit="return ValidateForm()">
+        <h2>Application Form</h2>
+        <div class="row">
+            <label>Full Name</label>
+            <input type="text" name="txtname" />
+            <div class="error" id="nameerr" />
+        </div>
+        <div class="row">
+            <label>Email Address</label>
+            <input type="text" name="txtemail" />
+            <div class="error" id="emailerr" />
+        </div>
+        <div class="row">
+            <label>Mobile Number</label>
+            <input type="text" name="txtmobile" />
+            <div class="error" id="mobileerr" />
+        </div>
+        <div class="row">
+            <label>Country</label>
+            <select name="country">
+                <option>Select</option>
+                <option>Australia</option>
+                <option>India</option>
+                <option>United Kingdom</option>
+                <option>United State</option>
+            </select>
+            <div class="error" id="countryerr" />
+        </div>
+        <div class="row">
+            <label>Gender</label>
+            <div class="form-inline">
+                <label><input type="radio" name="gender" value="Male" />Male</label>
+                <label><input type="radio" name="gender" value="Female" />Female</label>
+            </div>
+            <div class="error" id="gendererr" />
+        </div>
+        <div class="row">
+            <input type="submit" value="Submit" />
+        </div>
+    </form>
+</body>
+</html>
+<style>
+    body {
+      
+        font-size: 16px;
+        background: #f9f9f9;
+        font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    h2 {
+        text-align: center;
+        text-decoration: underline;
+    }
+
+    form {
+        width: 300px;
+        background: #fff;
+        padding: 15px 40px 40px;
+        border: 1px solid #ccc;
+        margin: 50px auto 0;
+        border-radius: 5px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px
+    }
+
+        label i {
+            color: #999;
+            font-size: 80%;
+        }
+
+    input, select {
+        border: 1px solid #ccc;
+        padding: 10px;
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 2px;
+    }
+
+    .row {
+        padding-bottom: 10px;
+    }
+
+    .form-inline {
+        border: 1px solid #ccc;
+        padding: 8px 10px 4px;
+        border-radius: 2px;
+    }
+
+        .form-inline label, .form-inline input {
+            display: inline-block;
+            width: auto;
+            padding-right: 15px;
+        }
+
+    .error {
+        color: red;
+        font-size: 90%;
+    }
+
+    input[type="submit"] {
+        font-size: 110%;
+        font-weight: 100;
+        background: #006dcc;
+        border-color: #016BC1;
+        box-shadow: 0 3px 0 #0165b6;
+        color: #fff;
+        margin-top: 10px;
+        cursor: pointer;
+    }
+
+        input[type="submit"]:hover {
+            background: #0165b6;
+        }
+</style>
+ 
